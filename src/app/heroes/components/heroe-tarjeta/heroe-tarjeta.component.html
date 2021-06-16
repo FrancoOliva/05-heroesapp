@@ -10,7 +10,6 @@
         </mat-card-subtitle>
     </mat-card-header>
 
-    <!-- <img mat-card-image src="assets/heroes/{{heroe.id}}.jpg"> -->
     <img mat-card-image [src]="heroe | imagen">
 
     <mat-card-content>
@@ -23,8 +22,8 @@
     </mat-card-content>
 
     <mat-card-actions>
-        <button mat-stroked-button>Leer más...</button>
-        <button mat-stroked-button>Editar</button>
+        <button mat-stroked-button [routerLink]="['/heroes', heroe.id]">Leer más...</button>
+        <button mat-stroked-button [routerLink]="['/heroes/editar', heroe.id]">Editar</button>
       </mat-card-actions>
 
 </mat-card>
