@@ -1,5 +1,26 @@
-<p>listado works!</p>
+<h1>Listado de Héroes</h1>
+<mat-divider></mat-divider>
+<br>
 
-<ul *ngFor="let heroe of heroes">
-    <li> {{heroe.superhero}} </li>
-</ul>
+<!-- fxLayout padre -->
+<div 
+fxLayout="row wrap"
+fxLayout.xs="column" 
+fxLayoutAlign="center" 
+fxLayoutGap="25px">
+
+    <!-- fxLayout hijo -->
+    <div 
+    *ngFor="let heroe of heroes"
+    fxFlex="20"
+    fxFlex.lg="15"
+    fxFlex.sm="30"
+    >
+        <!-- mediante un input le mandamos el "heroe" del ngFor al componente appHeroeTarjeta -->
+        <app-heroe-tarjeta [heroe]="heroe"></app-heroe-tarjeta>
+
+    </div>
+
+
+</div>
+
