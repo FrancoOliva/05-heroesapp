@@ -25,6 +25,14 @@ export class HeroesService {
   getSugerencias( termino:string ):Observable<Heroe[]>{
     return this.http.get<Heroe[]>( `${this.baseUrl}/heroes?q=${ termino }&_limit=6` );
   }
+
+
+  // CRUD
+  agregarHeroe( heroe: Heroe ):Observable<Heroe>{
+
+    // tenemos que especificar que lo que va a regresar es un dato de tipo Heroe
+    return this.http.post<Heroe>( `${ this.baseUrl }/heroes`, heroe );
+  }
   
 
 }
