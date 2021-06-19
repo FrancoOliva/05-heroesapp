@@ -68,10 +68,25 @@
 
         <br>
 
-        <button mat-stroked-button (click)="guardar()">
-            <!-- <mat-icon>save</mat-icon> -->
-            Guardar
-        </button>
+        
+        <div fxLayout>
+            <button mat-stroked-button (click)="guardar()">
+                <!-- <mat-icon>save</mat-icon> -->
+                Guardar
+            </button>
+
+            <span class="spacer"></span>
+
+            <button 
+            *ngIf="heroe.id"
+            mat-stroked-button 
+            (click)="borrarHeroe()" 
+            color="warn">
+                <!-- <mat-icon>save</mat-icon> -->
+                Borrar
+            </button>
+        </div>
+
     </div>
     
 
