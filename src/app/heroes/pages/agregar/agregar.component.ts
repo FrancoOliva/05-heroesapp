@@ -4,6 +4,9 @@ import { HeroesService } from '../../services/heroes.service';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { switchMap } from 'rxjs/operators';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmarComponent } from '../../components/confirmar/confirmar.component';
 
 @Component({
   selector: 'app-agregar',
@@ -36,7 +39,14 @@ export class AgregarComponent implements OnInit {
 
   }
 
-  constructor( private heroesService: HeroesService , private activatedRoute: ActivatedRoute, private router: Router) { }
+  constructor( 
+    private heroesService: HeroesService, 
+    private activatedRoute: ActivatedRoute, 
+    private router: Router,
+    private snackBar: MatSnackBar,
+    public dialog: MatDialog) {
+
+     }
 
   ngOnInit(): void {
 
@@ -60,13 +70,14 @@ export class AgregarComponent implements OnInit {
     if ( this.heroe.id ) {
       // actualizar
       this.heroesService.actualizarHeroe( this.heroe )
-      .subscribe( heroe => console.log('Héroe actualizado'));
+      .subscribe( heroe => this.mostrarSnakbar('Registro actualizado'));
     } else {
 
       // crear
       this.heroesService.agregarHeroe(this.heroe )
       .subscribe( heroe => {
         this.router.navigate(['/heroes/editar', heroe.id]);
+        this.mostrarSnakbar('Registro creado');
       });
 
     }
@@ -75,10 +86,31 @@ export class AgregarComponent implements OnInit {
   }
 
   borrarHeroe(){
-    this.heroesService.borrarHeroe(this.heroe.id!)
-    .subscribe( resp =>{
 
-      this.router.navigate(['/heroes']); // después de eliminar el héroe, lleva al usuario a esta ruta
+    // para usar dialog es necesario crearnos un componente con el contenido que queremos mostrarle al usuario
+    const dialog = this.dialog.open( ConfirmarComponent, {
+      width: '250px',
+      data: this.heroe
+    } );
+
+    dialog.afterClosed().subscribe(
+      (resultado) => {
+        if ( resultado ){
+
+          this.heroesService.borrarHeroe(this.heroe.id!)
+          .subscribe( resp =>{
+      
+          this.router.navigate(['/heroes']); // después de eliminar el héroe, lleva al usuario a esta ruta
+          });
+        }
+      }
+    );
+
+  }
+
+  mostrarSnakbar( mensaje: string ){
+    this.snackBar.open( mensaje, 'Cerrar', {
+      duration: 2000
     });
   }
 
