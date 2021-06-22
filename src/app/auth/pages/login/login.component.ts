@@ -30,5 +30,8 @@ export class LoginComponent {
      
   }
 
+  sinLogin(){
+    this.router.navigate(['./heroes/listado']);
+  }
 
 }
