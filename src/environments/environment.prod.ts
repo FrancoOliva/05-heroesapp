@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  baseUrl: 'https://fernando-herrera.com/api'
+  baseUrl: 'http://localhost:3000'
 };

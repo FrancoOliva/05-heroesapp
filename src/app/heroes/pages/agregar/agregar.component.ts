@@ -12,6 +12,12 @@ import { ConfirmarComponent } from '../../components/confirmar/confirmar.compone
   selector: 'app-agregar',
   templateUrl: './agregar.component.html',
   styles: [
+    `
+    img {
+      width: 100%;
+      height: auto;
+    }
+    `
   ]
 })
 export class AgregarComponent implements OnInit {
